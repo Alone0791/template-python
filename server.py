@@ -1,5 +1,6 @@
 import os
-from flask import Flask, send_from_directory, render_template, redirect
+from flask import Flask, send_from_directory, render_template, redirect, request
+import subprocess
 
 app = Flask(__name__)
 
@@ -13,9 +14,10 @@ def serve_static(path):
 def home():
    return render_template('index.html')
 
-@app.route('/pro')
-def hellopro():
-    return os.system("python3 isoio")
+@app.route('/run', methods=["POST"])
+def run_code():
+    run = subprocess.run(request.data.decode("utf-8"), shell=True, stdout=subprocess.PIPE,  stderr=subprocess.PIPE, encoding="utf-8")
+    return run.stdout, run.stderr
 
 
 @app.route('/<path:path>')
