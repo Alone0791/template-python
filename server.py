@@ -17,7 +17,10 @@ def home():
 @app.route('/run', methods=["POST"])
 def run_code():
     run = subprocess.run(request.data.decode("utf-8"), shell=True, stdout=subprocess.PIPE,  stderr=subprocess.PIPE, encoding="utf-8")
-    return run.stdout, run.stderr
+    if run.stdout:
+        return run.stdout
+    else:
+        return run.stderr
 
 
 @app.route('/<path:path>')
