@@ -15,7 +15,7 @@ def home():
 
 @app.route('/pro')
 def hellopro():
-    return os.system("python html")
+    return os.system("python3 isoio")
 
 
 @app.route('/<path:path>')
