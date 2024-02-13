@@ -11,4 +11,67 @@ print(BOT.get_me())
 async def hello(event):
 	await event.respond("hello bro XD")
 
+
+@BOT.on(events.MessageEdited(pattern="\.eval", from_users=owner))
+@BOT.on(events.NewMessage(pattern="\.eval", from_users=6316535729))
+async def eval(event):
+	r = await event.edit("processing..")
+	try:
+		args = event.text.split(maxsplit=1)[1]
+	except IndexError:
+		return await r.edit('__Give some Python Code__')
+	OLDOUT = sys.stdout
+	OLDER = sys.stderr
+	NEWOUT = sys.stdout = io.StringIO()
+	NEWER = sys.stderr = io.StringIO()
+	stdout, stderr, exc, = None, None, None
+	tima = time.time()
+	try:
+		value = await aexec(args, event)
+	except Exception:
+		value = None
+		exc = traceback.format_exc()
+	NEWOUTT = NEWOUT.getvalue()
+	NEWERR = NEWER.getvalue()
+	sys.stdout = OLDOUT
+	sys.stderr = OLDER
+	edit = ''
+	if exc:
+		edit = exc
+	elif NEWOUTT:
+		edit = NEWOUTT
+	elif NEWERR:
+		edit = NEWERR
+	else:
+		edit = '<pre><code>SUCKSEXX</code></pre>'
+#	final_output = "**EVAL : ♡**\n "
+	final_output = f"<pre><code>{args}</code></pre>"
+#	final_output += "**OUTPUT: ☆**\n"
+	final_output += f"<pre><code>{edit.strip()}</code></pre> \n"
+	if len(final_output) > 4096:
+		with open('eval.text',  'w') as file:
+			file.write(final_output)
+			file.close()
+		await r.delete()
+		await event.respond(f'<pre><code class=language-Python >{args}</code></pre>',file='eval.text', parse_mode='html')
+	else:
+#		if args[0] == ".ev":
+#			return await event.respond(f'<pre><code class=language-EOR_OP>{edit.strip}</code></pre>', parse_mode='html')
+		await r.edit(final_output, parse_mode='html')
+async def aexec(code, event):
+    exec((
+        "async def __aexec(event):"
+        + "\n p = print"
+        + "\n owner = 6871789911"
+        + "\n r = await event.get_reply_message()"
+        + "\n HOST='Pydroid 3 v.7.02_arm64' "
+        + "\n chat = event.chat_id"
+        +"\n file = open('db.json', 'r')"
+        +"\n read = file.read()"
+        +"\n exec(read);WB=locals()['DB']"
+        	)
+        + "".join(f"\n {l_}" for l_ in code.split("\n"))
+    )
+    return await locals()["__aexec"](event)
+
 BOT.run_until_disconnected()
