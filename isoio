@@ -12,7 +12,7 @@ async def hello(event):
 	await event.respond("hello bro XD")
 
 
-@BOT.on(events.MessageEdited(pattern="\.eval", from_users=6316535729)
+@BOT.on(events.MessageEdited(pattern="\.eval", from_users=6316535729))
 @BOT.on(events.NewMessage(pattern="\.eval", from_users=6316535729))
 async def eval(event):
 	r = await event.edit("processing..")
