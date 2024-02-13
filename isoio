@@ -1,4 +1,7 @@
 from telethon.sync import TelegramClient, events
+import io
+import sys
+import time
 
 api_id = 28463152
 api_hash = "bba9ca7537f844bcf4aebfb9f92aa5d8"
@@ -6,6 +9,8 @@ bot_token = "6430224129:AAFtGA1Pq3ewPr8Z4w34J2j7NfiTsLKgVno"
 
 BOT = TelegramClient("FLEXXI", api_id, api_hash).start(bot_token=bot_token)
 print(BOT.get_me())
+
+start = time.time()
 
 @BOT.on(events.NewMessage(pattern="/start"))
 async def hello(event):
