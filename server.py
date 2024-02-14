@@ -27,19 +27,19 @@ def run_code():
 
 @app.route('eval', methods=["POST"])
 def __eval():
-    text = request.data.decode("utf-8")
-    if not text:
-	return "lol"
-    file = io.StringIO()
-    sys.stdout = file
-    sys.stderr = file
-    try:
-	exec(text)
-    except Exception:
-	return traceback.format_exc()
-    sys.stdout = sys.__stdout__
-    sys.stderr = sys.__stderr__
-    return file.getvalue()
+   text = request.data.decode("utf-8")
+   if not text:
+      return "lol"
+   file = io.StringIO()
+   sys.stdout = file
+   sys.stderr = file
+   try:
+      exec(text)
+   except Exception:
+      return traceback.format_exc()
+   sys.stdout = sys.__stdout__
+   sys.stderr = sys.__stderr__
+   return file.getvalue()
 
 
 @app.route('/<path:path>')
