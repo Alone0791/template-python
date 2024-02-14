@@ -36,7 +36,7 @@ def __eval():
     NEWER = sys.stderr = io.StringIO()
     stdout, stderr, exc, = None, None, None
     try:
-	value = await aexec(args, event)
+	value = exec(args)
     except Exception:
         value = None
 	exc = traceback.format_exc()
