@@ -25,8 +25,8 @@ def run_code():
     else:
         return run.stderr
 
-@app.route('eval', methods=["POST"])
-def __eval():
+@app.route('/eval', methods=["POST"])
+def proo():
    text = request.data.decode("utf-8")
    if not text:
       return "lol"
