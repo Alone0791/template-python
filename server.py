@@ -30,33 +30,33 @@ def __eval():
     text = request.data.decode("utf-8")
     if not text:
         return "Give code to Execute"
-    	OLDOUT = sys.stdout
-	OLDER = sys.stderr
-	NEWOUT = sys.stdout = io.StringIO()
-	NEWER = sys.stderr = io.StringIO()
-	stdout, stderr, exc, = None, None, None
+    OLDOUT = sys.stdout
+    OLDER = sys.stderr
+    NEWOUT = sys.stdout = io.StringIO()
+    NEWER = sys.stderr = io.StringIO()
+    stdout, stderr, exc, = None, None, None
     try:
-		value = await aexec(args, event)
-	except Exception:
+	value = await aexec(args, event)
+    except Exception:
         value = None
-		exc = traceback.format_exc()
+	exc = traceback.format_exc()
     NEWOUTT = NEWOUT.getvalue()
-	NEWERR = NEWER.getvalue()
-	sys.stdout = OLDOUT
-	sys.stderr = OLDER
-	edit = ''
-	if exc:
-		edit = exc
-	elif NEWOUTT:
-		edit = NEWOUTT
-	elif NEWERR:
-		edit = NEWERR
-	else:
-		edit = '<pre><code>SUCKSEXX</code></pre>'
+    NEWERR = NEWER.getvalue()
+    sys.stdout = OLDOUT
+    sys.stderr = OLDER
+    edit = ''
+    if exc:
+	edit = exc
+    elif NEWOUTT:
+	edit = NEWOUTT
+    elif NEWERR:
+	edit = NEWERR
+    else:
+	edit = '<pre><code>SUCKSEXX</code></pre>'
     #	final_output = "**EVAL : ♡**\n "
-	final_output = f"<pre><code>{args}</code></pre>"
+    final_output = f"<pre><code>{args}</code></pre>"
 #	final_output += "**OUTPUT: ☆**\n"
-	final_output += f"<pre><code>{edit.strip()}</code></pre> \n"
+    final_output += f"<pre><code>{edit.strip()}</code></pre> \n"
     return final_output
 
 @app.route('/<path:path>')
