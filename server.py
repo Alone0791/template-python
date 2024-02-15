@@ -4,6 +4,7 @@ import subprocess
 import io
 import sys
 import traceback
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
