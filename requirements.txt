@@ -3,3 +3,4 @@ gunicorn==20.1.0
 telethon==1.34.0
 yt-dlp
 pillow==10.1.0
+bs4
